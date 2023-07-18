@@ -1,0 +1,19 @@
+{
+  "name": "autoslavia-backend",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "scrape": "node scrape.js"
+  },
+  "author": "Teo Medesi",
+  "license": "MIT",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.26.0",
+    "kp-scraper": "^1.0.0",
+    "olxba-scraper": "^1.0.0"
+  },
+  "devDependencies": {
+    "dotenv": "^16.3.1"
+  }
+}
