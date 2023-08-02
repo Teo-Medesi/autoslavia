@@ -26,10 +26,10 @@ const updateListings = async () => {
     const kp = new KupujemProdajem();
 
     await kp.init();
-
-    const categories = await kp.getCategories();
-    const category = await categories.getVehicleCatetegory();
-
+    /* 
+        const categories = await kp.getCategories();
+        const category = await categories.getVehicleCatetegory();
+     */
     let listings = [];
 
     listings = data;
@@ -43,15 +43,23 @@ const updateListings = async () => {
      */
 
     for (const listing of listings) {
-      let location_id = await supabase.from("locations").select("id").eq("country", "Srbija").eq("settlement", listing?.location);
+      let { data: location_id } = await supabase.from("locations").select("id").eq("country", "Srbija").eq("settlement", listing?.location);
 
-      if (!location_id) {
-        location_id = await supabase.from("locations").insert({ country: "Srbija", settlement: listing?.location }).select("id");
+      if (Object.keys(location_id).length === 0) {
+        const location_object = await supabase.from("locations").insert({ country: "Srbija", settlement: listing?.location }).select("id");
+        location_id = location_object?.data[0]?.id;
+        console.log(`location_id: ${JSON.stringify(location_object)}`);
       }
 
-      const category_id = await supabase.from("categories").select("id").eq("name", listing?.subCategory);
+
+      const category_object = await supabase.from("categories").select("id").eq("name", listing?.subcategory);
+      const category_id = category_object?.data[0]?.id;
+
+      console.log(`category_id: ${JSON.stringify(category_id)}`);
 
       const { price, currency } = extractPrice(listing?.price);
+
+      console.log(`price: ${price} currency: ${currency}`);
 
       const newListing = {
         title: listing.title,
@@ -59,14 +67,19 @@ const updateListings = async () => {
         full_description: listing.fullDescription,
         url: listing.url,
         cover_image: listing.coverImage,
-        price: price,
+        price: parseInt(price),
         price_currency: currency,
         location_id,
         category_id,
-
       }
 
-      const listing_id = await supabase.from("listings").insert(newListing).select("id");
+      console.log(`newListing: ${JSON.stringify(newListing)}`);
+
+      const listing_object = await supabase.from("listings").insert(newListing).select("id");
+      const listing_id = listing_object?.data[0]?.id;
+
+      console.log(`listing_id: ${JSON.stringify(listing_object)}`);
+
       const images = listing?.images?.map(element => { return { url: element, listing_id } })
       const warnings = listing?.vehicleInformation?.warnings?.map(element => { return { text: element, listing_id } });
       const gear = listing?.vehicleInformation?.gear?.map(element => { return { text: element, listing_id } });
@@ -81,7 +94,7 @@ const updateListings = async () => {
     await kp.close();
   }
   catch (error) {
-    console.error(`\n \n Error while updating listings, error: ${error} \n \n `);
+    console.error(`\n \n Error while updating listings, error: ${error} \n \n  stack: ${error.stack} \n \n`);
   }
 }
 
