@@ -1,19 +1,19 @@
 import KupujemProdajem from "kp-scraper/kp-scraper.js";
 import supabase from "./supabase.config.js";
-import data from "./data.json" assert { type: "json" };
-import fs from "fs";
 
 const run = async () => {
-  await updateListings();
+  await updateListingsKupujemProdajem();
   process.exit(0);
 }
 
 function extractPrice(price) {
+  const sanitizedPrice = price.replace(/[.,]/g, '');
+
   const regex = /(\d+(?:\.\d+)?)\s*(\D+)/;
-  const match = price.match(regex);
+  const match = sanitizedPrice.match(regex);
 
   if (match && match.length === 3) {
-    const extractedPrice = match[1];
+    const extractedPrice = parseFloat(match[1]);
     const currency = match[2];
     return { price: extractedPrice, currency };
   }
@@ -21,45 +21,38 @@ function extractPrice(price) {
   return {};
 }
 
-const updateListings = async () => {
+const updateListingsKupujemProdajem = async (pageCount = 5) => {
   try {
     const kp = new KupujemProdajem();
 
     await kp.init();
-    /* 
-        const categories = await kp.getCategories();
-        const category = await categories.getVehicleCatetegory();
-     */
+
+    const categories = await kp.getCategories();
+    const category = await categories.getVehicleCatetegory();
+
     let listings = [];
 
-    listings = data;
-
-    /*   for (let page = 0; page < 1; page++) {
-        const data = (await category.getDetailedListings({ outputTimestamps: true, page })).getAllListings();
-        listings.push(...data);
-      }
-    
-      fs.writeFileSync("data.json", JSON.stringify(listings))
-     */
+    for (let page = 0; page < pageCount; page++) {
+      const data = (await category.getDetailedListings({ outputTimestamps: true, page })).getAllListings();
+      listings.push(...data);
+    }
 
     for (const listing of listings) {
       let { data: location_id } = await supabase.from("locations").select("id").eq("country", "Srbija").eq("settlement", listing?.location);
 
       if (Object.keys(location_id).length === 0) {
         const location_object = await supabase.from("locations").insert({ country: "Srbija", settlement: listing?.location }).select("id");
-        location_id = location_object?.data[0]?.id;
+        location_id = location_object?.data?.[0]?.id;
         console.log(`location_id: ${JSON.stringify(location_object)}`);
       }
-
+      else {
+        location_id = location_id?.[0]?.id;
+      }
 
       const category_object = await supabase.from("categories").select("id").eq("name", listing?.subcategory);
-      const category_id = category_object?.data[0]?.id;
-
-      console.log(`category_id: ${JSON.stringify(category_id)}`);
+      const category_id = category_object?.data?.[0]?.id;
 
       const { price, currency } = extractPrice(listing?.price);
-
-      console.log(`price: ${price} currency: ${currency}`);
 
       const newListing = {
         title: listing.title,
@@ -73,12 +66,10 @@ const updateListings = async () => {
         category_id,
       }
 
-      console.log(`newListing: ${JSON.stringify(newListing)}`);
-
       const listing_object = await supabase.from("listings").insert(newListing).select("id");
-      const listing_id = listing_object?.data[0]?.id;
+      const listing_id = listing_object?.data?.[0]?.id;
 
-      console.log(`listing_id: ${JSON.stringify(listing_object)}`);
+      if (!listing_id) continue;
 
       const images = listing?.images?.map(element => { return { url: element, listing_id } })
       const warnings = listing?.vehicleInformation?.warnings?.map(element => { return { text: element, listing_id } });
@@ -98,7 +89,7 @@ const updateListings = async () => {
   }
 }
 
-const updateCategories = async () => {
+const updateCategoriesKupujemProdajem = async () => {
   const kp = new KupujemProdajem();
 
   await kp.init();
