@@ -6,7 +6,7 @@ const russo = Russo_One({subsets: ["latin"], weight: "400"});
 
 const DesktopNavbar = ({className}) => {
   return (
-    <nav className={className + " w-full flex gap-8 items-center px-12 bg-secondary " + russo.className}>
+    <nav className={className + " w-full flex gap-8 items-center px-12 bg-primary " + russo.className}>
       <div className="">
         <ul className="flex gap-8 w-max text-xl items-center">
           <li><h3 className="text-2xl tracking-wide flex items-center"><span className="text-tertiary">AU</span>TO<Image src={logo} className="w-12 h-12"/>SLA<span className="text-tertiary">VIA</span></h3></li>
