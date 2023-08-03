@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
       <body className={"bg-background" + russo.className}>
           <MobileNavbar className="md:hidden h-[10vh]" />
           <DesktopNavbar className="hidden md:flex h-[8vh]" />
-          <div className='h-[82vh] md:h-[92vh]'>{children}</div>
+          <div className='h-[82vh] bg-background md:h-[92vh]'>{children}</div>
       </body>
     </html>
   )
