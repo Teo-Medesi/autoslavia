@@ -6,6 +6,9 @@ module.exports = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    aspectRatio: {
+      "3/2": "3 / 2"
+    },
     colors: {
       "primary": "#0c3e71",
       "secondary": "#de1c02",
@@ -13,7 +16,8 @@ module.exports = {
       "background": "#eeeeee",
       "black": "#0c0c0c",
       "gray": "#888888",
-      "gray2": "#bbbbbb"
+      "gray2": "#bbbbbb",
+      "white": "#ffffff"
     },
     extend: {
       backgroundImage: {
