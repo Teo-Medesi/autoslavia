@@ -1,3 +1,4 @@
+import { Carousel } from "react-responsive-carousel";
 import Image from "next/image";
 import { Inter } from "next/font/google"
 
