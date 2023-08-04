@@ -20,8 +20,9 @@ const russo = Russo_One({subsets: ["latin"], weight: "400"});
 const getFeaturedListings = async () => {
   "use server";
   
-  const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/listings/featured`);
+  const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/listings/featured`, {next: {revalidate: 60}});
   const data = await response.json();
+  console.log(data);
 
   return data.data;
 }

@@ -2,6 +2,7 @@ import KupujemProdajem from "kp-scraper/kp-scraper.js";
 import supabase from "./supabase.config.js";
 
 const run = async () => { 
+  await updateListingsKupujemProdajem(2, 3);
   await correctListingsKupujemProdajem();
   process.exit(0);
 }
@@ -27,52 +28,58 @@ function extractPrice(price) {
 
 const insertListings = async (listings) => {
   for (const listing of listings) {
-    let { data: location_id } = await supabase.from("locations").select("id").eq("country", "Srbija").eq("settlement", listing?.location);
+    try {
+      let { data: location_id } = await supabase.from("locations").select("id").eq("country", "Srbija").eq("settlement", listing?.location);
 
-    if (Object.keys(location_id).length === 0) {
-      const location_object = await supabase.from("locations").insert({ country: "Srbija", settlement: listing?.location }).select("id");
-      location_id = location_object?.data?.[0]?.id;
+      if (Object.keys(location_id).length === 0) {
+        const location_object = await supabase.from("locations").insert({ country: "Srbija", settlement: listing?.location }).select("id");
+        location_id = location_object?.data?.[0]?.id;
+      }
+      else {
+        location_id = location_id?.[0]?.id;
+      }
+  
+      const category_object = await supabase.from("categories").select("id").eq("category", listing?.subcategory);
+      const category_id = category_object?.data?.[0]?.id;
+  
+      const { price, currency } = extractPrice(listing?.price);
+  
+      const newListing = {
+        title: listing.title,
+        description: listing.description,
+        full_description: listing.fullDescription,
+        url: listing.url,
+        cover_image: listing.coverImage,
+        price: parseInt(price),
+        price_currency: currency,
+        location_id,
+        category_id,
+      }
+  
+      let listing_object = await supabase.from("listings").upsert(newListing).select("id");
+      let listing_id = listing_object?.data?.[0]?.id;
+  
+      if (!listing_id) {
+        listing_object = await supabase.from("listings").select("id").eq("url", newListing.url);
+        listing_id = listing_object?.data?.[0]?.id;
+  
+        if (listing_object.error) continue;
+      }
+  
+      const images = listing?.images?.map(element => { return { url: element, listing_id } })
+      const warnings = listing?.vehicleInformation?.warnings?.map(element => { return { text: element, listing_id } });
+      const gear = listing?.vehicleInformation?.gear?.map(element => { return { text: element, listing_id } });
+      const characteristics = listing?.characteristics?.map(element => { return { ...element, listing_id } });
+  
+      await supabase.from("listing_images").insert(images);
+      await supabase.from("listing_warnings").insert(warnings);
+      await supabase.from("listing_gear").insert(gear);
+      await supabase.from("listing_characteristics").insert(characteristics);
     }
-    else {
-      location_id = location_id?.[0]?.id;
+    catch (error) {
+      console.log(`Error: ${error}`);
+      continue;
     }
-
-    const category_object = await supabase.from("categories").select("id").eq("category", listing?.subcategory);
-    const category_id = category_object?.data?.[0]?.id;
-
-    const { price, currency } = extractPrice(listing?.price);
-
-    const newListing = {
-      title: listing.title,
-      description: listing.description,
-      full_description: listing.fullDescription,
-      url: listing.url,
-      cover_image: listing.coverImage,
-      price: parseInt(price),
-      price_currency: currency,
-      location_id,
-      category_id,
-    }
-
-    let listing_object = await supabase.from("listings").upsert(newListing).select("id");
-    let listing_id = listing_object?.data?.[0]?.id;
-
-    if (!listing_id) {
-      listing_object = await supabase.from("listings").select("id").eq("url", newListing.url);
-      listing_id = listing_object?.data?.[0]?.id;
-
-      if (listing_object.error) continue;
-    }
-
-    const images = listing?.images?.map(element => { return { url: element, listing_id } })
-    const warnings = listing?.vehicleInformation?.warnings?.map(element => { return { text: element, listing_id } });
-    const gear = listing?.vehicleInformation?.gear?.map(element => { return { text: element, listing_id } });
-    const characteristics = listing?.characteristics?.map(element => { return { ...element, listing_id } });
-
-    await supabase.from("listing_images").insert(images);
-    await supabase.from("listing_warnings").insert(warnings);
-    await supabase.from("listing_gear").insert(gear);
-    await supabase.from("listing_characteristics").insert(characteristics);
   }
 }
 

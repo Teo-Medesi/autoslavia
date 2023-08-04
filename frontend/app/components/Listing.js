@@ -4,7 +4,7 @@ import Link from "next/link"
 
 const inter = Inter({ subsets: ['latin'] })
 
-const Listing = ({ listing = {} }) => {
+const Listing = ({listing = {}}) => {
     
     return (
         <div className={"py-8 " + inter.className}>

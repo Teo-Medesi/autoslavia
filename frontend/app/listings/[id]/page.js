@@ -1,6 +1,6 @@
-import { Carousel } from "react-responsive-carousel";
 import Image from "next/image";
 import { Inter } from "next/font/google"
+import ImageCarousel from "./ImageCarousel";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,12 +17,12 @@ export default async function Listing({ params }) {
     return (
         <div className={"flex h-[92vh]" + inter.className}>
             <div className="basis-1/4"></div>
-            <div className="flex mt-12 basis-2/4 h-full flex-col bg-white">
-                <div className="aspect-16/9 w-full relative"><Image fill={true} className="rounded-t" src={listing.cover_image} alt="listing" /></div>
+            <div className="flex mt-12 basis-2/4 h-full items-center flex-col bg-white">
+                <div className="w-1/2"><ImageCarousel images={listing.listing_images}/></div>
                 <div className="flex flex-col p-4 gap-4 text-black">
-                    <h2 className="text-2xl whitespace-nowrap overflow-hidden">{listing.title}</h2>
-                    <h3 className="text-xl font-bold text-primary">{(listing.price && listing.price_currency) ? `${listing.price} ${listing.price_currency}` : "No Price"}</h3>
-                    <p className="">{listing.full_description || listing.description}</p>
+                    <h2 className="text-2xl whitespace-nowrap overflow-hidden">{listing?.title}</h2>
+                    <h3 className="text-xl font-bold text-primary">{(listing?.price && listing?.price_currency) ? `${listing?.price} ${listing?.price_currency}` : "No Price"}</h3>
+                    <p className="">{listing?.full_description || listing?.description}</p>
                 </div>
             </div>
             <div className="basis-1/4"></div>
