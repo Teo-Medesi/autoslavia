@@ -2,7 +2,8 @@ import KupujemProdajem from "kp-scraper/kp-scraper.js";
 import supabase from "./supabase.config.js";
 
 const run = async () => {
-  await updateListingsKupujemProdajem();
+  await updateListingsKupujemProdajem(1, 2);
+  await updateListingsKupujemProdajem(1, 2);
   process.exit(0);
 }
 
@@ -21,7 +22,7 @@ function extractPrice(price) {
   return {};
 }
 
-const updateListingsKupujemProdajem = async (pageCount = 5) => {
+const updateListingsKupujemProdajem = async (pageStart = 1, pageEnd = 5) => {
   try {
     const kp = new KupujemProdajem();
 
@@ -32,10 +33,13 @@ const updateListingsKupujemProdajem = async (pageCount = 5) => {
 
     let listings = [];
 
-    for (let page = 0; page < pageCount; page++) {
+    for (let page = pageStart; page <= pageEnd; page++) {
       const data = (await category.getDetailedListings({ outputTimestamps: true, page })).getAllListings();
+      await kp.page.screenshot({ path: "screenshot.png" })
       listings.push(...data);
     }
+
+    console.log(listings);
 
     for (const listing of listings) {
       let { data: location_id } = await supabase.from("locations").select("id").eq("country", "Srbija").eq("settlement", listing?.location);
@@ -66,10 +70,15 @@ const updateListingsKupujemProdajem = async (pageCount = 5) => {
         category_id,
       }
 
-      const listing_object = await supabase.from("listings").insert(newListing).select("id");
-      const listing_id = listing_object?.data?.[0]?.id;
+      let listing_object = await supabase.from("listings").insert(newListing).select("id");
+      let listing_id = listing_object?.data?.[0]?.id;
 
-      if (!listing_id) continue;
+      if (!listing_id) {
+        listing_object = await supabase.from("listings").select("id").eq("url", newListing.url);
+        listing_id = listing_object?.data?.[0]?.id;
+
+        if (listing_object.error) continue;
+      }
 
       const images = listing?.images?.map(element => { return { url: element, listing_id } })
       const warnings = listing?.vehicleInformation?.warnings?.map(element => { return { text: element, listing_id } });
@@ -96,7 +105,7 @@ const updateCategoriesKupujemProdajem = async () => {
 
   const categories = await kp.getCategories();
   const category = await categories.getCategory("automobili");
-  const subCategories = category.subCategories.map(element => { return { ...element, name: element.name.toLowerCase() } });
+  const subCategories = category.subCategories.map(element => { return { category_url: element.url, category: element.name.toLowerCase() } });
 
   await supabase.from("categories").insert(subCategories);
 
