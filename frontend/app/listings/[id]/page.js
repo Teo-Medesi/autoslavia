@@ -1,24 +1,17 @@
-"use client"
-import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Inter } from "next/font/google"
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Listing({ params }) {
-    const [listing, setListing] = useState({});
+const getListing = async (id) => {
+    const response = await fetch(`http://localhost:3000/api/listings/${id}`);
+    const data = await response.json();
 
-    useEffect(() => {
-        if (Object.keys(listing).length === 0) getListing();
-    }, [])
+    return data.data;
+}
 
-
-    const getListing = async () => {
-        const response = await fetch(`/api/listings/${params.id}`);
-        const data = await response.json();
-
-        setListing(data.data);
-    }
+export default async function Listing({ params }) {
+    const listing = await getListing(params.id);
 
     return (
         <div className={"flex h-[92vh]" + inter.className}>

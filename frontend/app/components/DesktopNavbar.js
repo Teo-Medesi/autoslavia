@@ -1,6 +1,7 @@
 import logo from "../../public/svgs/logo.svg"
 import Image from "next/image"
 import { Russo_One } from "next/font/google";
+import Link from "next/link";
 
 const russo = Russo_One({subsets: ["latin"], weight: "400"});
 
@@ -10,8 +11,8 @@ const DesktopNavbar = ({className}) => {
       <div className="">
         <ul className="flex gap-8 w-max text-xl items-center">
           <li><h3 className="text-2xl tracking-wide flex items-center"><span className="text-tertiary">AU</span>TO<Image src={logo} className="w-12 h-12"/>SLA<span className="text-tertiary">VIA</span></h3></li>
-          <li className="hover:text-tertiary cursor-pointer"><a href="#">Home</a></li>
-          <li className="hover:text-tertiary cursor-pointer"><a href="#">Categories</a></li>
+          <li className="hover:text-tertiary cursor-pointer"><Link href="/">Home</Link></li>
+          <li className="hover:text-tertiary cursor-pointer"><Link href="#">Categories</Link></li>
         </ul>
       </div>
         <input placeholder="Zastava 750..." type="text" className="p-2 rounded placeholder:text-black outline-none text-black w-full" />

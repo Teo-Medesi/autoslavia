@@ -1,4 +1,3 @@
-"use client"
 import { Russo_One } from "next/font/google";
 import Image from "next/image";
 import zastava from "../public/zastava.png"
@@ -14,25 +13,22 @@ import ford from "../public/svgs/brands/ford-svgrepo-com.svg"
 import ferrari from "../public/svgs/brands/ferrari-svgrepo-com.svg"
 import porsche from "../public/svgs/brands/porsche-svgrepo-com.svg"
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import Listing from "./components/Listing";
+import FeaturedListingsGrid from "./FeaturedListingsGrid";
 
 const russo = Russo_One({subsets: ["latin"], weight: "400"});
 
-export default function Home() {
+const getFeaturedListings = async () => {
+  "use server";
+  
+  const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/listings/featured`);
+  const data = await response.json();
+
+  return data.data;
+}
+
+export default async function Home() {
   const brands = [volkswagen, audi, peugeot, renault, mercedes, skoda, opel, ferrari, porsche, fiat, ford]
-  const [listings, setListings] = useState([]);
-
-  useEffect(() => {
-    if (listings.length === 0) getFeaturedListings();
-  }, [])
-
-  const getFeaturedListings = async () => {
-    const response = await fetch("api/listings/featured");
-    const data = await response.json();
-
-    setListings(current => [...current, ...data.data]);
-  }
+  const listings = await getFeaturedListings();
 
   return (
     <main className={russo.className + " w-full h-full bg-background overflow-x-hidden"}>
@@ -54,10 +50,7 @@ export default function Home() {
       <section className="md:h-[22vh] border-tertiary border-t-8 bg-primary flex flex-wrap md:flex-nowrap py-12 md:py-0 gap-8 md:gap-0 md:flex-row justify-evenly md:justify-between items-center px-12">
         {brands.map((element, index) => <Link key={index} href="#" className="rounded-full p-4 bg-background cursor-pointer"><Image src={element} className="w-12 h-12 md:w-20 md:h-20"/></Link>)}
       </section>
-      <section className="flex flex-col md:flex-row md:justify-between items-center md:flex-wrap min-h-[50vh] bg-background p-6 md:p-24"> 
-        {listings.map(listing => <Listing listing={listing} key={listing.id} />)}
-        <div className="w-full mt-8 flex justify-center items-center"><button onClick={getFeaturedListings} className="p-4 cursor-pointer bg-primary text-xl">Load More</button></div>
-      </section>
+      <FeaturedListingsGrid className="min-h-[50vh]" listingsProp={listings} getFeaturedListings={getFeaturedListings} />
     </main>
   )
 }
