@@ -8,8 +8,8 @@ const Characteristics = ({ characteristics, className }) => {
 
           return (
             <div className={"flex w-1/2 text-black border-b border-gray2"}>
-              <div className="basis-1/2 p-4">{element.key}</div>
-              <div className={"basis-1/2 p-4 " + (isBorderRight && "border-r border-gray2")}>{element.value}</div>
+              <div className="basis-1/2 p-4 whitespace-nowrap overflow-hidden">{element.key}</div>
+              <div className={"basis-1/2 p-4 whitespace-nowrap overflow-hidden " + (isBorderRight && "border-r border-gray2")}>{element.value}</div>
             </div>
           )
         }
