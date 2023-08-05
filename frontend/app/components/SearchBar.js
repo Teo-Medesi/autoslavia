@@ -9,7 +9,10 @@ const SearchBar = () => {
     const router = useRouter();
 
     const handleSearch = () => {
-        if (keywords) router.push(`/listings?keywords=${keywords}`);
+        if (keywords) {
+            router.push(`/listings/search?keywords=${keywords}`);
+            router.refresh();
+        }
     }
 
     const handleKeyDown = event => {
