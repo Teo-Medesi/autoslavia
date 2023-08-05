@@ -1,8 +1,11 @@
-import Image from "next/image";
-import { Inter } from "next/font/google"
 import ImageCarousel from "./ImageCarousel";
-
-const inter = Inter({ subsets: ['latin'] })
+import Tags from "./Tags";
+import category from "@/public/svgs/category.svg"
+import location from "@/public/svgs/location.svg"
+import gear from "@/public/svgs/gear2.svg"
+import Characteristics from "./Characteristics";
+import Warnings from "./Warnings";
+import Loading from "@/app/components/Loading";
 
 const getListing = async (id) => {
     const response = await fetch(`http://localhost:3000/api/listings/${id}`);
@@ -13,19 +16,23 @@ const getListing = async (id) => {
 
 export default async function Listing({ params }) {
     const listing = await getListing(params.id);
+    const listing_gear = listing?.listing_gear?.map(element => { return { text: element.text, icon: gear } }) || [];
+    const tags = [{ text: listing?.locations?.country, icon: location }, { text: listing?.locations?.settlement, icon: location }, { text: listing?.categories?.category, icon: category }, ...listing_gear]
+    const characteristics = listing?.listing_characteristics?.map(element => { return { key: element.key, value: element.value } }) || [];
 
     return (
-        <div className={"flex h-[92vh]" + inter.className}>
-            <div className="basis-1/4"></div>
-            <div className="flex mt-12 basis-2/4 h-full items-center flex-col bg-white">
-                <div className="w-1/2"><ImageCarousel images={listing.listing_images}/></div>
+        <div className="flex basis-1/2 w-1/2 h-full items-center flex-col gap-4 bg-white">
+            <div className="w-full max-h-[75vh] overflow-hidden"><ImageCarousel images={listing?.listing_images} /></div>
+            <div className="px-4 flex flex-col gap-8">
+                <Tags tagsProp={tags} />
                 <div className="flex flex-col p-4 gap-4 text-black">
-                    <h2 className="text-2xl whitespace-nowrap overflow-hidden">{listing?.title}</h2>
-                    <h3 className="text-xl font-bold text-primary">{(listing?.price && listing?.price_currency) ? `${listing?.price} ${listing?.price_currency}` : "No Price"}</h3>
-                    <p className="">{listing?.full_description || listing?.description}</p>
+                    <h2 className="text-4xl">{listing?.title}</h2>
+                    <h3 className="text-2xl font-bold text-white bg-primary p-2 px-8 w-max rounded">{(listing?.price && listing?.price_currency) ? `${listing?.price} ${listing?.price_currency}` : "No Price"}</h3>
+                    <p className="text-xl">{listing?.full_description || listing?.description}</p>
                 </div>
+                <Characteristics characteristics={characteristics} />
+                <Warnings warnings={listing?.listing_warnings || []} />
             </div>
-            <div className="basis-1/4"></div>
         </div>
     )
 }

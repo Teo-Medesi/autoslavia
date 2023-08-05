@@ -1,0 +1,233 @@
+{
+  "message": "success",
+  "data": {
+    "id": 279,
+    "title": "Peugeot 208",
+    "description": "2015.god, 142.000 km, 1560cm3, Dizel,  Nema servisnu knjigu. . . Radjen veliki servis na ...",
+    "price": 5500,
+    "location_id": 9,
+    "url": "https://novi.kupujemprodajem.com/automobili/peugeot/peugeot-208/oglas/154070904?filterId=2140107750",
+    "cover_image": "https://images.kupujemprodajem.com/photos/oglasi/4/90/154070904/tmb-300x300-154070904_64a570374a8ac8-7005116120210824_183816.webp",
+    "price_currency": "€",
+    "category_id": null,
+    "full_description": "Nema servisnu knjigu. . . Radjen veliki servis na 136952km,   promenjene kocnice i plocice. . . Sledeci vlasnik miran na duze vreme. . . Registrovan do 01.2024 ali ide na ime kupca znaci mora se dodatno registrovati sto dodje negde oko 29000 dinara (manje vise u zavisnosti pruzalaca usluge). . . U dobrom stanju, trenutno je presao oko 142000km. Razlog prodaje je selidba iz zemljeZamena ne. ",
+    "categories": null,
+    "locations": {
+      "id": 9,
+      "country": "Srbija",
+      "municipality": null,
+      "settlement": "Čačak"
+    },
+    "listing_images": [
+      {
+        "id": 741,
+        "listing_id": 279,
+        "url": "https://images.kupujemprodajem.com/photos/oglasi/4/90/154070904/big-154070904_64a570374a8ac8-7005116120210824_183816.webp"
+      },
+      {
+        "id": 742,
+        "listing_id": 279,
+        "url": "https://images.kupujemprodajem.com/photos/oglasi/4/90/154070904/big-154070904_64a57038672809-3546255720210824_183832.webp"
+      },
+      {
+        "id": 743,
+        "listing_id": 279,
+        "url": "https://images.kupujemprodajem.com/photos/oglasi/4/90/154070904/big-154070904_64a570397b07f5-9590680620210824_183843.webp"
+      },
+      {
+        "id": 744,
+        "listing_id": 279,
+        "url": "https://images.kupujemprodajem.com/photos/oglasi/4/90/154070904/big-154070904_64a5703a9d4023-8647630620210824_183854.webp"
+      },
+      {
+        "id": 745,
+        "listing_id": 279,
+        "url": "https://images.kupujemprodajem.com/photos/oglasi/4/90/154070904/big-154070904_64a5703bc2a9f0-4649867120210824_183921.webp"
+      },
+      {
+        "id": 746,
+        "listing_id": 279,
+        "url": "https://images.kupujemprodajem.com/photos/oglasi/4/90/154070904/big-154070904_64a5703cdf2385-5292097220210824_183927.webp"
+      },
+      {
+        "id": 747,
+        "listing_id": 279,
+        "url": "https://images.kupujemprodajem.com/photos/oglasi/4/90/154070904/big-154070904_64a5703e10e3b4-2371868220210824_183936.webp"
+      },
+      {
+        "id": 748,
+        "listing_id": 279,
+        "url": "https://images.kupujemprodajem.com/photos/oglasi/4/90/154070904/big-154070904_64a5703f305f72-6218828320210824_183948.webp"
+      },
+      {
+        "id": 749,
+        "listing_id": 279,
+        "url": "https://images.kupujemprodajem.com/photos/oglasi/4/90/154070904/big-154070904_64a570405a5248-0379870720210824_183957.webp"
+      },
+      {
+        "id": 750,
+        "listing_id": 279,
+        "url": "https://images.kupujemprodajem.com/photos/oglasi/4/90/154070904/big-154070904_64a5704174c096-9669812620210824_184032.webp"
+      },
+      {
+        "id": 751,
+        "listing_id": 279,
+        "url": "https://images.kupujemprodajem.com/photos/oglasi/4/90/154070904/big-154070904_64a5704283e883-0856471420210824_184047.webp"
+      },
+      {
+        "id": 752,
+        "listing_id": 279,
+        "url": "https://images.kupujemprodajem.com/photos/oglasi/4/90/154070904/big-154070904_64a57043906089-1283845820210824_184111.webp"
+      },
+      {
+        "id": 753,
+        "listing_id": 279,
+        "url": "https://images.kupujemprodajem.com/photos/oglasi/4/90/154070904/big-154070904_64a570449fe4f4-2865071620210824_184159.webp"
+      },
+      {
+        "id": 754,
+        "listing_id": 279,
+        "url": "https://images.kupujemprodajem.com/photos/oglasi/4/90/154070904/big-154070904_64a57045a4ca36-6887931120210824_184208.webp"
+      },
+      {
+        "id": 755,
+        "listing_id": 279,
+        "url": "https://images.kupujemprodajem.com/photos/oglasi/4/90/154070904/big-154070904_64a57046cf3f05-9095754920210824_184241.webp"
+      },
+      {
+        "id": 756,
+        "listing_id": 279,
+        "url": "https://images.kupujemprodajem.com/photos/oglasi/4/90/154070904/big-154070904_64a57047dcc8b0-9441753920210824_184249.webp"
+      },
+      {
+        "id": 757,
+        "listing_id": 279,
+        "url": "https://images.kupujemprodajem.com/photos/oglasi/4/90/154070904/big-154070904_64a570490d6d77-9197406220210824_184333.webp"
+      },
+      {
+        "id": 758,
+        "listing_id": 279,
+        "url": "https://images.kupujemprodajem.com/photos/oglasi/4/90/154070904/big-154070904_64a57049e330e8-8206300020210824_184343.webp"
+      },
+      {
+        "id": 759,
+        "listing_id": 279,
+        "url": "https://images.kupujemprodajem.com/photos/oglasi/4/90/154070904/big-154070904_64a5704ad06cc7-4553394220210824_184359.webp"
+      }
+    ],
+    "listing_warnings": [
+      {
+        "id": 132,
+        "text": "Prodavac je: Fizičko lice",
+        "listing_id": 279
+      },
+      {
+        "id": 133,
+        "text": "Na ime kupca",
+        "listing_id": 279
+      },
+      {
+        "id": 134,
+        "text": "Nije registrovan",
+        "listing_id": 279
+      }
+    ],
+    "listing_characteristics": [
+      {
+        "id": 639,
+        "key": "Proizveden",
+        "value": "2015 god.",
+        "listing_id": 279
+      },
+      {
+        "id": 640,
+        "key": "Klima",
+        "value": "Manuelna (A/C) klima",
+        "listing_id": 279
+      },
+      {
+        "id": 641,
+        "key": "Prešao",
+        "value": "142.000 km",
+        "listing_id": 279
+      },
+      {
+        "id": 642,
+        "key": "Vrata",
+        "value": "4/5 vrata",
+        "listing_id": 279
+      },
+      {
+        "id": 643,
+        "key": "Gorivo",
+        "value": "Dizel",
+        "listing_id": 279
+      },
+      {
+        "id": 644,
+        "key": "Karoserija",
+        "value": "Hečbek",
+        "listing_id": 279
+      },
+      {
+        "id": 645,
+        "key": "Kubikaža",
+        "value": "1560 cm³",
+        "listing_id": 279
+      },
+      {
+        "id": 646,
+        "key": "Sedišta",
+        "value": "5 sedišta",
+        "listing_id": 279
+      },
+      {
+        "id": 647,
+        "key": "Snaga motora",
+        "value": "75 KS (55 kW)",
+        "listing_id": 279
+      },
+      {
+        "id": 648,
+        "key": "Boja",
+        "value": "Bela",
+        "listing_id": 279
+      },
+      {
+        "id": 649,
+        "key": "Menjač",
+        "value": "Manuelni - 5 brzina",
+        "listing_id": 279
+      },
+      {
+        "id": 650,
+        "key": "Pogon",
+        "value": "Prednji",
+        "listing_id": 279
+      },
+      {
+        "id": 651,
+        "key": "Emisiona klasa",
+        "value": "Euro 5",
+        "listing_id": 279
+      }
+    ],
+    "listing_gear": [
+      {
+        "id": 577,
+        "text": "ABS",
+        "listing_id": 279
+      },
+      {
+        "id": 578,
+        "text": "Radio / CD",
+        "listing_id": 279
+      },
+      {
+        "id": 579,
+        "text": "Airbegovi",
+        "listing_id": 279
+      }
+    ]
+  }
+}
