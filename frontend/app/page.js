@@ -13,7 +13,7 @@ import ford from "../public/svgs/brands/ford-svgrepo-com.svg"
 import ferrari from "../public/svgs/brands/ferrari-svgrepo-com.svg"
 import porsche from "../public/svgs/brands/porsche-svgrepo-com.svg"
 import Link from "next/link";
-import FeaturedListingsGrid from "./FeaturedListingsGrid";
+import ListingsGrid from "./ListingsGrid";
 
 const russo = Russo_One({subsets: ["latin"], weight: "400"});
 
@@ -28,7 +28,7 @@ const getFeaturedListings = async () => {
 }
 
 export default async function Home() {
-  const brands = [volkswagen, audi, peugeot, renault, mercedes, skoda, opel, ferrari, porsche, fiat, ford]
+  const brands = [{src: volkswagen, name: "volkswagen"}, {src: audi, name: "audi"}, {src: peugeot, name: "peugeot"}, {src: renault, name: "renault"}, {src: mercedes, name: "mercedes"}, {src: skoda, name: "skoda"}, {src: opel, name: "opel"}, {src: ferrari, name: "ferrari"}, {src: porsche, name: ""}, {src: fiat, name: "fiat"}, {src: ford, name: "ford"}]
   const listings = await getFeaturedListings();
 
   return (
@@ -49,9 +49,9 @@ export default async function Home() {
         </div>
       </header>
       <section className="md:h-[22vh] border-tertiary border-t-8 bg-primary flex flex-wrap md:flex-nowrap py-12 md:py-0 gap-8 md:gap-0 md:flex-row justify-evenly md:justify-between items-center px-12">
-        {brands.map((element, index) => <Link key={index} href="#" className="rounded-full p-4 bg-background cursor-pointer"><Image src={element} className="w-12 h-12 md:w-20 md:h-20"/></Link>)}
+        {brands.map((element, index) => <Link key={index} href={`/categories/${element.name}`} className="rounded-full p-4 bg-background cursor-pointer"><Image src={element.src} alt={element.name} className="w-12 h-12 md:w-20 md:h-20"/></Link>)}
       </section>
-      <FeaturedListingsGrid className="min-h-[50vh]" listingsProp={listings} getFeaturedListings={getFeaturedListings} />
+      <ListingsGrid className="min-h-[50vh]" listingsProp={listings} getMoreListings={getFeaturedListings} />
     </main>
   )
 }

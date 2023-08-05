@@ -2,7 +2,7 @@ import KupujemProdajem from "kp-scraper/kp-scraper.js";
 import supabase from "./supabase.config.js";
 
 const run = async () => { 
-  await updateListingsKupujemProdajem(2, 3);
+  //await updateListingsKupujemProdajem(3, 3);
   await correctListingsKupujemProdajem();
   process.exit(0);
 }
@@ -113,12 +113,11 @@ const correctListingsKupujemProdajem = async () => {
         const vehicleInformation = await listingHandle?.getVehicleInformation();
         const characteristics = await listingHandle?.getCharacteristics();
 
-        console.log("images: ", images);
-        if (!images) break;
+        console.timeEnd(`Listing ${listing.id} Time`);
 
+        if (!images) continue;
         listingsToInsert.push({...listing, images, subCategory, fullDescription, vehicleInformation, characteristics});
 
-        console.timeEnd(`Listing ${listing.id} Time`);
       } 
       catch (error) {
         console.log(`Error: ${error}`);

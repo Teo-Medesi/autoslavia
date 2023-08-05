@@ -2,6 +2,7 @@ import logo from "../../public/svgs/logo.svg"
 import Image from "next/image"
 import { Russo_One } from "next/font/google";
 import Link from "next/link";
+import SearchBar from "./SearchBar";
 
 const russo = Russo_One({ subsets: ["latin"], weight: "400" });
 
@@ -15,7 +16,7 @@ const DesktopNavbar = ({ className }) => {
           <li className="hover:text-tertiary cursor-pointer"><Link href="#">Categories</Link></li>
         </ul>
       </div>
-      <input placeholder="Zastava 750..." type="text" className="p-2 rounded placeholder:text-black outline-none text-black w-full" />
+      <SearchBar />
       <div className="flex justify-end">
         <ul className="flex gap-8 text-xl items-center">
           <li className="hover:text-tertiary cursor-pointer">Help</li>
