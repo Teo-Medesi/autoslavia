@@ -23,6 +23,7 @@ module.exports = {
       "gray": "#888888",
       "gray2": "#bbbbbb",
       "gray3": "#efefef",
+      "gray4": "#92b9e8",
       "white": "#ffffff"
     },
     extend: {

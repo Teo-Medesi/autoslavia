@@ -4,11 +4,11 @@ import { useState } from "react"
 import Image from "next/image"
 
 const Tags = ({ tagsProp, className }) => {
-  const [tags, setTags] = useState(tagsProp.slice(0, 7));
+  const [tags, setTags] = useState(tagsProp?.slice(0, 7));
   const [isToggled, setIsToggled] = useState(false);
 
   const handleClick = () => {
-    if (isToggled) setTags(tagsProp.slice(0, 7));
+    if (isToggled) setTags(tagsProp?.slice(0, 7));
     else setTags(tagsProp);
 
     setIsToggled(current => !current);
