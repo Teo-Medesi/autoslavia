@@ -1,11 +1,11 @@
-import ImageCarousel from "./ImageCarousel";
-import Tags from "./Tags";
+import ImageCarousel from "../../../components/ImageCarousel";
+import Tags from "../../../components/Tags";
 import category from "@/public/svgs/category.svg"
 import location from "@/public/svgs/location.svg"
 import gear from "@/public/svgs/gear2.svg"
-import Characteristics from "./Characteristics";
-import Warnings from "./Warnings";
-import Loading from "@/app/components/Loading";
+import Characteristics from "../../../components/Characteristics";
+import Warnings from "../../../components/Warnings";
+import Loading from "@/components/Loading";
 
 const getListing = async (id) => {
     const response = await fetch(`http://localhost:3000/api/listings/${id}`);

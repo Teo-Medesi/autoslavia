@@ -1,4 +1,4 @@
-import ListingsGrid from "@/app/ListingsGrid";
+import ListingsGrid from "@/components/ListingsGrid";
 
 const getListings = async (keywords) => {
     "use server";

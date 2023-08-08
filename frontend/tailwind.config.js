@@ -16,15 +16,14 @@ module.exports = {
     },
     colors: {
       "primary": "#0c3e71",
-      "secondary": "#820A08",
-      "tertiary": "#fcd20e",
+      "secondary": "#fcd20e",
       "background": "#eeeeee",
       "black": "#0c0c0c",
       "gray": "#888888",
       "gray2": "#bbbbbb",
       "gray3": "#efefef",
       "gray4": "#92b9e8",
-      "white": "#ffffff"
+      "white": "#ffffff",
     },
     extend: {
       backgroundImage: {

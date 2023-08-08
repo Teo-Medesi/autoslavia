@@ -1,5 +1,9 @@
-import LoadingComponent from "@/app/components/Loading"
+import LoadingComponent from "@/components/Loading"
 
 export default function Loading() {
-    return <LoadingComponent className="!h-auto" />
+    return (
+        <div className="w-full h-[90vh] bg-background">
+            <LoadingComponent className="!h-auto" />
+        </div>
+    )
 }

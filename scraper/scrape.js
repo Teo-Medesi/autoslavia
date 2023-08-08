@@ -27,6 +27,8 @@ function extractPrice(price) {
 }
 
 const insertListings = async (listings) => {
+  console.log("Inserting...");
+  
   for (const listing of listings) {
     try {
       let { data: location_id } = await supabase.from("locations").select("id").eq("country", "Srbija").eq("settlement", listing?.location);

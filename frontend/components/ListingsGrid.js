@@ -1,6 +1,6 @@
 "use client"
 import { useState } from "react"
-import Listing from "./components/Listing.js";
+import Listing from "./Listing.js";
 
 const ListingsGrid = ({ className, listingsProp, getMoreListings }) => {
     const [listings, setListings] = useState(listingsProp);
