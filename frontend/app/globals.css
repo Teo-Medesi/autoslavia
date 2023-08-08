@@ -17,7 +17,17 @@
 }
 
 * {
-  color: inherit;
+  color: #000000;
+}
+
+@layer components {
+  .button {
+    @apply p-4 rounded text-xl bg-primary text-background;
+  }
+
+  .button-xl {
+    @apply p-6 px-20 rounded text-xl bg-primary text-background;
+  }
 }
 
 @media (prefers-color-scheme: dark) {

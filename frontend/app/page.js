@@ -32,16 +32,15 @@ export default async function Home() {
   const listings = await getFeaturedListings();
 
   return (
-    <main className={russo.className + " w-full h-full bg-background overflow-x-hidden"}>
-      <header className="flex w-full justify-center md:px-12 py-12 md:py-0 md:h-[70vh] bg-background ">
-        <div className="flex text-black flex-col gap-16 w-full h-full basis-1/2 justify-center items-center">
+    <main className="w-full h-full bg-background overflow-x-hidden">
+      <header className="flex flex-col xl:flex-row w-full justify-center items-center md:px-12 py-12 md:py-0 md:min-h-[70vh] bg-background ">
+        <div className="flex text-black py-12 flex-col gap-16 w-full h-full basis-1/2 justify-center items-center">
           <div className="flex flex-col justify-center gap-2">
-            <h1 className="text-4xl md:text-5xl uppercase">Lorem ipsum, dolor sit amet consectetur adipisicing elit. </h1>
+            <h1 className={russo.className + " text-4xl font-bold md:text-5xl uppercase"}>Lorem ipsum, dolor sit amet consectetur adipisicing elit. </h1>
             <p className="text-gray">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis odio, natus suscipit molestias rem delectus placeat distinctio eius cum, aliquam, ipsam incidunt officiis quae dolores maiores! Sapiente tenetur eius laborum.</p>
           </div>
-          <div className="flex flex-col md:flex-row w-full gap-16 md:gap-32 items-center justify-center">
-            <button className="p-6 px-20 rounded uppercase text-xl bg-primary text-background">lorem</button>
-            <button className="p-6 px-20 rounded uppercase text-xl bg-primary text-background">ipsum</button>
+          <div className="flex w-full justify-start">
+            <button className="button-xl uppercase">lorem</button>
           </div>
         </div>
         <div className="hidden md:block">

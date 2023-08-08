@@ -2,7 +2,7 @@ import KupujemProdajem from "kp-scraper/kp-scraper.js";
 import supabase from "./supabase.config.js";
 
 const run = async () => { 
-  //await updateListingsKupujemProdajem(3, 3);
+  // await updateListingsKupujemProdajem(5, 5);
   await correctListingsKupujemProdajem();
   process.exit(0);
 }
@@ -115,7 +115,11 @@ const correctListingsKupujemProdajem = async () => {
 
         console.timeEnd(`Listing ${listing.id} Time`);
 
-        if (!images) continue;
+        if (!images) {
+          console.error("Temporarily blocked by website, please wait and then try again.")
+          break;
+        }
+        
         listingsToInsert.push({...listing, images, subCategory, fullDescription, vehicleInformation, characteristics});
 
       } 

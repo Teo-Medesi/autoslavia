@@ -14,7 +14,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={"bg-background text-black" + russo.className}>
+      <body className={"bg-background text-black" + inter.className}>
         <MobileNavbar className="md:hidden h-[10vh]" />
         <DesktopNavbar className="hidden md:flex h-[10vh]" />
         <div className='h-[80vh] bg-background md:h-[90vh]'>{children}</div>
