@@ -8,7 +8,7 @@ const ImageCarousel = ({ images }) => {
         <Carousel className="w-full bg-black" showArrows={true} stopSwipingHandler={true} showIndicators={true}>
             {images?.map(image => {
                 return (
-                    <div>
+                    <div className="min-h-[50vh]">
                         <img src={image.url} />
                     </div>
                 )

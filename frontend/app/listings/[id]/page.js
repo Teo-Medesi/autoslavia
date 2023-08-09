@@ -21,7 +21,7 @@ export default async function Listing({ params }) {
     const characteristics = listing?.listing_characteristics?.map(element => { return { key: element.key, value: element.value } }) || [];
 
     return (
-        <div className="flex basis-1/2 w-1/2 h-full items-center flex-col gap-4 bg-white">
+        <div className="flex w-full lg:w-1/2 h-full items-center flex-col gap-4 bg-white">
             <div className="w-full max-h-[75vh] overflow-hidden"><ImageCarousel images={listing?.listing_images} /></div>
             <div className="px-4 flex flex-col gap-8">
                 <Tags tagsProp={tags} />

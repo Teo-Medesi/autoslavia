@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
       <body className={"bg-background " + inter.className}>
         <MobileNavbar className="md:hidden h-[10vh]" />
         <DesktopNavbar className="hidden md:flex h-[10vh]" />
-        <div className='min-h-[90vh] bg-background'>{children}</div>
+        <div className='min-h-[90vh] bg-backgroundayou'>{children}</div>
         <Footer className="hidden"/>
       </body>
     </html>

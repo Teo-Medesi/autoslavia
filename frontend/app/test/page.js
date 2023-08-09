@@ -1,7 +1,7 @@
 export default function Test() {
     return (
-        <div className="flex justify-center items-center h-full">
-            <button className="button">bruh</button>
+        <div className="grid-container py-12 w-full h-full">
+
         </div>
     )
 }

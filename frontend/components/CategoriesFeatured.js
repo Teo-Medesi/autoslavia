@@ -17,8 +17,8 @@ const CategoriesFeatured = () => {
   const brands = [{src: volkswagen, name: "volkswagen"}, {src: audi, name: "audi"}, {src: peugeot, name: "peugeot"}, {src: renault, name: "renault"}, {src: mercedes, name: "mercedes"}, {src: skoda, name: "skoda"}, {src: opel, name: "opel"}, {src: ferrari, name: "ferrari"}, {src: porsche, name: ""}, {src: fiat, name: "fiat"}, {src: ford, name: "ford"}]
     
   return (
-    <section className="md:h-[22vh] border-secondary border-t-8 bg-primary flex flex-wrap md:flex-nowrap py-12 md:py-0 gap-8 md:gap-0 md:flex-row justify-evenly md:justify-between items-center px-12">
-        {brands.map((element, index) => <Link key={index} href={`/categories/${element.name}`} className="rounded-full p-4 bg-background cursor-pointer"><Image src={element.src} alt={element.name} className="w-12 h-12 md:w-20 md:h-20"/></Link>)}
+    <section className="md:h-[22vh] border-secondary border-t-8 bg-primary hidden md:grid md:grid-cols-5 lg:grid-cols-8 xl:grid-cols-9 2xl:grid-cols-11 grid-rows-1 auto-rows-[0] overflow-hidden gap-12 padding-x-2">
+        {brands.map((element, index) => <div className="h-[22vh] flex items-center"><Link key={index} href={`/categories/${element.name}`} className="rounded-full self-center aspect-1/1 p-4 bg-background cursor-pointer"><Image src={element.src} alt={element.name} className=""/></Link></div>)}
     </section>
   )
 }

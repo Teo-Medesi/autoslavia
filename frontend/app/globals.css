@@ -43,11 +43,40 @@
   @apply hover:text-secondary text-white cursor-pointer w-max;
 }
 
+.padding-x-sm {
+  @apply px-3;
+}
+
+.padding-y-sm {
+  @apply py-3;
+}
+
+.padding-x {
+  @apply px-6;
+}
+
+.padding-y {
+  @apply py-6;
+}
+
+.padding-x-2 {
+  @apply px-12;
+}
+
+.padding-y-2 {
+  @apply py-12;
+}
+
 .font-inherit {
   font-family: inherit;
 }
 
-
+.listings-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: 25rem;
+  grid-gap: 1rem;
+}
 
 
 @media (prefers-color-scheme: dark) {

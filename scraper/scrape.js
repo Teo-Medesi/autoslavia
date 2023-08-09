@@ -4,14 +4,26 @@ import supabase from "./supabase.config.js";
 import data from "./listingToInsert.json" assert {type: "json"}
 
 const run = async () => { 
-  // await updateListingsKupujemProdajem(5, 5);
-  await correctListingsKupujemProdajem();
+  await updateListingsLoopKupujemProdajem();
   process.exit(0);
 }
 
 
 const insertFromFile = async () => {
   await insertListings(data);
+}
+
+const updateListingsLoopKupujemProdajem = async () => {
+  for (let i = 0; i < 10; i++) {
+    await updateListingsKupujemProdajem(i + 5, i + 5);
+    await new Promise(resolve => setTimeout(resolve, 360000));
+    await correctListingsKupujemProdajem();
+    await new Promise(resolve => setTimeout(resolve, 360000));
+  }
+}
+
+function shuffleArray(array) {
+  return array.slice().sort(() => Math.random() - 0.5);
 }
 
 function extractPrice(price) {
@@ -79,7 +91,8 @@ const insertListings = async (listings) => {
       const characteristics = listing?.characteristics?.map(element => { return { ...element, listing_id } });
   
       const {data: images_data} = await supabase.from("listing_images").select("*").eq("listing_id", listing_id);
-      if (images_data?.length > 0 || !images_data?.length) {
+      if (images_data?.length > 0) {
+        console.log(`images_data: ${images_data}`)
         console.log(`Listing: ${listing_id} already has images`);
         continue;
       };
@@ -125,7 +138,7 @@ const correctListingsKupujemProdajem = async () => {
     console.log(`Number of listings to be fixed: ${invalidListings.length}`);
     console.log(`IDs to be to fixed: ${invalidListings.map(element => element.id)}`);
 
-    for (const listing of invalidListings) {
+    for (const listing of shuffleArray(invalidListings)) {
       try {
         console.time(`Listing ${listing.id} Time`);
 
@@ -138,15 +151,12 @@ const correctListingsKupujemProdajem = async () => {
 
         console.timeEnd(`Listing ${listing.id} Time`);
 
-        await new Promise(resolve => setTimeout(resolve, 3000));
-
         if (!images) {
           console.error("Temporarily blocked by website, please wait and then try again.")
           break;
         }
         
         listingsToInsert.push({...listing, images, subCategory, fullDescription, vehicleInformation, characteristics});
-        saveToFolder(listingsToInsert, "listingToInsert.json")
 
       } 
       catch (error) {
