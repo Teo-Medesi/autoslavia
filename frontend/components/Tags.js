@@ -20,7 +20,7 @@ const Tags = ({ tagsProp, className }) => {
         {tags?.map(tag => {
           if (tag.text) {
             return (
-              <div className="py-4 px-6 rounded flex gap-2 items-center text-black font-semibold border border-gray2">
+              <div className="py-4 px-6 rounded flex gap-2 items-center text-black font-semibold shadow-md shadow-gray2">
                 <Image src={tag.icon} className="w-6 h-6" alt="tag icon" />
                 <p className="whitespace-nowrap">{tag.text}</p>
               </div>

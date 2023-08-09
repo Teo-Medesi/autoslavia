@@ -25,7 +25,7 @@ export default async function Listing({ params }) {
             <div className="w-full max-h-[75vh] overflow-hidden"><ImageCarousel images={listing?.listing_images} /></div>
             <div className="px-4 flex flex-col gap-8">
                 <Tags tagsProp={tags} />
-                <div className="flex flex-col p-4 gap-4 text-black">
+                <div className="flex flex-col p-4 gap-8 text-black">
                     <h2 className="text-4xl">{listing?.title}</h2>
                     <h3 className="text-2xl font-bold text-white bg-primary p-2 px-8 w-max rounded">{(listing?.price && listing?.price_currency) ? `${listing?.price} ${listing?.price_currency}` : "No Price"}</h3>
                     <p className="text-xl">{listing?.full_description || listing?.description}</p>

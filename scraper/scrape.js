@@ -1,5 +1,7 @@
 import KupujemProdajem from "kp-scraper/kp-scraper.js";
+import { saveToFolder } from "kp-scraper/utils/utils.js";
 import supabase from "./supabase.config.js";
+import data from "./listingToInsert.json" assert {type: "json"}
 
 const run = async () => { 
   // await updateListingsKupujemProdajem(5, 5);
@@ -7,6 +9,10 @@ const run = async () => {
   process.exit(0);
 }
 
+
+const insertFromFile = async () => {
+  await insertListings(data);
+}
 
 function extractPrice(price) {
   try {
@@ -27,11 +33,11 @@ function extractPrice(price) {
 }
 
 const insertListings = async (listings) => {
-  console.log("Inserting...");
+  console.log(`Inserting ${listings?.length} listings...`);
   
   for (const listing of listings) {
     try {
-      let { data: location_id } = await supabase.from("locations").select("id").eq("country", "Srbija").eq("settlement", listing?.location);
+      let { data: location_id, location_error } = await supabase.from("locations").select("id").eq("country", "Srbija").eq("settlement", listing?.location);
 
       if (Object.keys(location_id).length === 0) {
         const location_object = await supabase.from("locations").insert({ country: "Srbija", settlement: listing?.location }).select("id");
@@ -43,7 +49,7 @@ const insertListings = async (listings) => {
   
       const category_object = await supabase.from("categories").select("id").eq("category", listing?.subcategory);
       const category_id = category_object?.data?.[0]?.id;
-  
+
       const { price, currency } = extractPrice(listing?.price);
   
       const newListing = {
@@ -61,18 +67,23 @@ const insertListings = async (listings) => {
       let listing_object = await supabase.from("listings").upsert(newListing).select("id");
       let listing_id = listing_object?.data?.[0]?.id;
   
-      if (!listing_id) {
+      if (!listing_id || listing_object.error) {
         listing_object = await supabase.from("listings").select("id").eq("url", newListing.url);
         listing_id = listing_object?.data?.[0]?.id;
-  
-        if (listing_object.error) continue;
       }
   
+      console.log(`listing_id to insert images into: ${listing_id}, images: ${listing?.images?.length}`);
       const images = listing?.images?.map(element => { return { url: element, listing_id } })
       const warnings = listing?.vehicleInformation?.warnings?.map(element => { return { text: element, listing_id } });
       const gear = listing?.vehicleInformation?.gear?.map(element => { return { text: element, listing_id } });
       const characteristics = listing?.characteristics?.map(element => { return { ...element, listing_id } });
   
+      const {data: images_data} = await supabase.from("listing_images").select("*").eq("listing_id", listing_id);
+      if (images_data?.length > 0 || !images_data?.length) {
+        console.log(`Listing: ${listing_id} already has images`);
+        continue;
+      };
+
       await supabase.from("listing_images").insert(images);
       await supabase.from("listing_warnings").insert(warnings);
       await supabase.from("listing_gear").insert(gear);
@@ -90,8 +101,17 @@ const getInvalidListings = async () => {
   const validListingIds = [...new Set(images_data.map(element => element.listing_id))];
 
   let {data: invalidListings} = await supabase.from("listings").select("*").not("id", "in", `(${validListingIds})`);
+
+  const invalidListingsFiltered = [];
+
+  for (const listing of invalidListings) {
+    const {data: filtered_images_data} = await supabase.from("listing_images").select("*").eq("listing_id", listing.id);
+    if (filtered_images_data?.length === 0) {
+      invalidListingsFiltered.push(listing);
+    };
+  }
   
-  return invalidListings;
+  return invalidListingsFiltered;
 }
 
 const correctListingsKupujemProdajem = async () => {
@@ -103,6 +123,7 @@ const correctListingsKupujemProdajem = async () => {
     let listingsToInsert = [];
 
     console.log(`Number of listings to be fixed: ${invalidListings.length}`);
+    console.log(`IDs to be to fixed: ${invalidListings.map(element => element.id)}`);
 
     for (const listing of invalidListings) {
       try {
@@ -117,12 +138,15 @@ const correctListingsKupujemProdajem = async () => {
 
         console.timeEnd(`Listing ${listing.id} Time`);
 
+        await new Promise(resolve => setTimeout(resolve, 3000));
+
         if (!images) {
           console.error("Temporarily blocked by website, please wait and then try again.")
           break;
         }
         
         listingsToInsert.push({...listing, images, subCategory, fullDescription, vehicleInformation, characteristics});
+        saveToFolder(listingsToInsert, "listingToInsert.json")
 
       } 
       catch (error) {
