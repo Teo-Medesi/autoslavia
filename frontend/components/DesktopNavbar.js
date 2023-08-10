@@ -20,7 +20,7 @@ const DesktopNavbar = ({ className }) => {
       <div className="flex justify-end">
         <ul className="flex gap-8 text-xl items-center">
           <li className="nav-link hidden lg:block">Help</li>
-          <li><button className="btn-secondary">Sign Up</button></li>
+          <li><Link href={"/sign-up"}><button className="btn-secondary">Sign Up</button></Link></li>
         </ul>
       </div>
     </nav>

@@ -1,13 +1,5 @@
 import { CategoriesFeatured, ListingsGrid, Hero } from "@/components";
-
-const getFeaturedListings = async (filters = {}) => {
-  "use server";
-  
-  const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/listings/featured`, {next: {revalidate: 60}});
-  const data = await response.json();
-
-  return data.data;
-}
+import { getFeaturedListings } from "@/actions";
 
 export default async function Home() {
   const listings = await getFeaturedListings();

@@ -12,6 +12,7 @@ import Footer from "./Footer";
 import Hero from "./Hero";
 import CategoriesFeatured from "./CategoriesFeatured";
 import Filter from "./Filter";
+import Favorite from "./Favorite";
 
 
 export {
@@ -28,5 +29,6 @@ export {
     Footer,
     Hero,
     CategoriesFeatured,
-    Filter
+    Filter,
+    Favorite
 }

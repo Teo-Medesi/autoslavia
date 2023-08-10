@@ -1,12 +1,23 @@
 "use client"
 import { useEffect, useState } from "react";
+import { getLocations } from "@/actions";
 
 const Filter = ({refreshListings}) => {
     const [filters, setFilters] = useState({});
+    const [locations, setLocations] = useState([]);
 
-    useEffect(() => {
+    const currentYear = new Date().getFullYear();
+    const productionDates = Array.from({ length: currentYear - 1885 + 1 }, (_, index) => 1900 + index);
+
+    useEffect(() => {   
         if (Object.keys(filters).length != 0) refreshListings(filters);
-    }, [filters]);
+        if (locations?.length === 0) fetchLocations();
+    }, [filters, locations]);
+
+    const fetchLocations = async () => {
+        const locations = await getLocations();
+        setLocations(locations);
+    };
 
     const handleChange = (value) => {
         setFilters(current => { return { ...current, ...value } });
@@ -17,7 +28,7 @@ const Filter = ({refreshListings}) => {
     const filtersArray = [{ name: "brand", data: brands }, { name: "price", data: [] }, { name: "country", data: countries }, { name: "location", data: [] }, { name: "production data", data: [] }, { name: "mileage", data: [] }, { name: "engine size", data: [] }, { name: "color", data: [] }, { name: "ABS", data: ["No ABS"] }];
 
     return (
-        <div className="flex justify-between items-center w-full h-[10vh] padding-x-sm padding-y-sm">
+        <div className="flex overflow-x-scroll overflow-y-hidden no-scrollbar gap-4 justify-between items-center w-full h-[10vh] padding-x-sm padding-y-sm">
             <div className="flex gap-4">
                 <div className="flex flex-col">
                     <p className="text-gray">Brand</p>
@@ -28,9 +39,15 @@ const Filter = ({refreshListings}) => {
                 </div>
                 <div className="flex flex-col">
                     <p className="text-gray">Price</p>
-                    <div className="tag-sm !p-0 flex gap-4">
-                        <input placeholder="Minimum" className="rounded p-2 bg-background shadow-md shadow-gray" type="text" />
-                        <input placeholder="Maximum" className="rounded p-2 bg-background shadow-md shadow-gray" type="text" />
+                    <div className="flex gap-4"> 
+                        <div className="flex">
+                            <input onChange={event => handleChange({ minPrice: event.target.value })} placeholder="Minimum" className="!rounded-r-none w-32 input-sm" type="text" />
+                            <div className="rounded-r p-2 px-4 shadow shadow-gray font-bold bg-secondary text-black">€</div>
+                        </div>
+                        <div className="flex">
+                            <input onChange={event => handleChange({ maxPrice: event.target.value })} placeholder="Maximum" className="!rounded-r-none w-32 input-sm" type="text" />
+                            <div className="rounded-r p-2 px-4 shadow shadow-gray font-bold bg-secondary text-black">€</div>
+                        </div>
                     </div>
                 </div>
                 <div className="flex flex-col">
@@ -42,22 +59,15 @@ const Filter = ({refreshListings}) => {
                 </div>
                 <div className="flex flex-col">
                     <p className="text-gray">Location</p>
-                    <select onChange={event => handleChange({ brand: event.target.value })} className="tag-sm">
-                        {brands.map(value => <option value={value}>{value}</option>)}
+                    <select onChange={event => handleChange({ settlement: event.target.value })} className="tag-sm">
+                        {locations?.map(value => <option value={value}>{value}</option>)}
                         <option value={"all"}>all</option>
                     </select>
                 </div>
                 <div className="flex flex-col">
-                    <p className="text-gray">Production Date</p>
-                    <select onChange={event => handleChange({ brand: event.target.value })} className="tag-sm">
-                        {brands.map(value => <option value={value}>{value}</option>)}
-                        <option value={"all"}>all</option>
-                    </select>
-                </div>
-                <div className="flex flex-col">
-                    <p className="text-gray">Color</p>
-                    <select onChange={event => handleChange({ brand: event.target.value })} className="tag-sm">
-                        {brands.map(value => <option value={value}>{value}</option>)}
+                    <p className="text-gray whitespace-nowrap">Production Date</p>
+                    <select onChange={event => handleChange({ brand: event.target.value })} className="!w-full tag-sm ">
+                        {productionDates.map(value => <option value={value}>{value}</option>)}
                         <option value={"all"}>all</option>
                     </select>
                 </div>

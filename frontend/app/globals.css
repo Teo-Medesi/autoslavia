@@ -16,6 +16,9 @@
   background: #fcd20e;
 }
 
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
 
 * {
   color: #000000;
@@ -69,6 +72,14 @@
 
 .tag-sm {
   @apply bg-background cursor-pointer p-2 w-max rounded-md outline-none border border-background hover:border-gray2 shadow shadow-gray;
+}
+
+.input-sm {
+  @apply rounded p-2 outline-none bg-background shadow shadow-gray;
+}
+
+.input {
+  @apply rounded p-4 outline-none bg-background shadow shadow-gray;
 }
 
 .font-inherit {
