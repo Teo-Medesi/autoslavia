@@ -1,6 +1,6 @@
 import ListingsGrid from "@/components/ListingsGrid";
 
-const getListings = async (category) => {
+const getListings = async (category, filters = {}) => {
     "use server";
     if (!category) throw new Error("Missing category param!");
 

@@ -14,9 +14,9 @@ const insertFromFile = async () => {
 }
 
 const updateListingsLoopKupujemProdajem = async () => {
-  for (let i = 0; i < 10; i++) {
-    //await updateListingsKupujemProdajem(i + 5, i + 5);
-    //await new Promise(resolve => setTimeout(resolve, 360000));
+  for (let i = 0; i < 20; i++) {
+/*     await updateListingsKupujemProdajem(i, i);
+    await new Promise(resolve => setTimeout(resolve, 360000)); */
     await correctListingsKupujemProdajem();
     await new Promise(resolve => setTimeout(resolve, 360000));
   }

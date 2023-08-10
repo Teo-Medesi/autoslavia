@@ -1,13 +1,15 @@
 "use client"
-import { useState } from "react";
-import FilterItem from "./FilterItem"
+import { useEffect, useState } from "react";
 
-const Filter = () => {
+const Filter = ({refreshListings}) => {
     const [filters, setFilters] = useState({});
+
+    useEffect(() => {
+        if (Object.keys(filters).length != 0) refreshListings(filters);
+    }, [filters]);
 
     const handleChange = (value) => {
         setFilters(current => { return { ...current, ...value } });
-        console.log(filters);
     }
 
     const brands = ["toyota", "honda", "ford", "chevrolet", "nissan", "jeep", "volkswagen", "bmw", "mercedes", "audi", "hyundai", "kia", "subaru", "mazda", "porsche", "lexus", "volvo", "fiat", "buick", "cadillac", "mini", "jaguar", "landrover", "maserati", "lincoln", "acura", "mitsubishi", "chrysler", "dodge", "ram", "tesla", "astonmartin", "ferrari", "lamborghini", "rollsroyce", "bentley"];
@@ -26,15 +28,15 @@ const Filter = () => {
                 </div>
                 <div className="flex flex-col">
                     <p className="text-gray">Price</p>
-                    <select onChange={event => handleChange({ brand: event.target.value })} className="tag-sm">
-                        {brands.map(value => <option value={value}>{value}</option>)}
-                        <option value={"all"}>all</option>
-                    </select>
+                    <div className="tag-sm !p-0 flex gap-4">
+                        <input placeholder="Minimum" className="rounded p-2 bg-background shadow-md shadow-gray" type="text" />
+                        <input placeholder="Maximum" className="rounded p-2 bg-background shadow-md shadow-gray" type="text" />
+                    </div>
                 </div>
                 <div className="flex flex-col">
                     <p className="text-gray">Country</p>
-                    <select onChange={event => handleChange({ brand: event.target.value })} className="tag-sm">
-                        {brands.map(value => <option value={value}>{value}</option>)}
+                    <select onChange={event => handleChange({ country: event.target.value })} className="tag-sm">
+                        {countries.map(value => <option value={value}>{value}</option>)}
                         <option value={"all"}>all</option>
                     </select>
                 </div>
