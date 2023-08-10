@@ -11,6 +11,7 @@ import ImageCarousel from "./ImageCarousel";
 import Footer from "./Footer";
 import Hero from "./Hero";
 import CategoriesFeatured from "./CategoriesFeatured";
+import Filter from "./Filter";
 
 
 export {
@@ -26,5 +27,6 @@ export {
     ListingsGrid,
     Footer,
     Hero,
-    CategoriesFeatured
+    CategoriesFeatured,
+    Filter
 }

@@ -67,6 +67,10 @@
   @apply py-12;
 }
 
+.tag-sm {
+  @apply bg-background cursor-pointer p-2 w-max rounded-md outline-none border border-background hover:border-gray2 shadow shadow-gray;
+}
+
 .font-inherit {
   font-family: inherit;
 }
