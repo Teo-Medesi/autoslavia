@@ -10,3 +10,7 @@
     --- make basic filtering functionality
     --- add contact information, that is link to original listing
     --- basic user auth
+
+# August 12, 2023
+    --- https://supabase.com/docs/guides/auth/auth-helpers/nextjs 
+    --- auth

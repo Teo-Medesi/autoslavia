@@ -1,5 +1,8 @@
 "use server";
 
+import supabase from "@/supabase.config";
+import router from "next/navigation";
+
 const getLocations = async () => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/locations`);
     const data = await response.json();
@@ -44,12 +47,23 @@ const addToFavorites = async (id) => {
     
 }
 
-const signUp = async (data) => {
-    console.log(data);
+const signUpWithEmailAndPassword = async (data) => {
+    const email = data?.get("email");
+    const password = data?.get("password");
+
+    const {data: user, error} = await supabase.auth.signUp({email, password});
+    console.log(user, error);
+    router?.redirect("/");
 }
 
-const signIn = async (data) => {
-    console.log(data);
+const signInWithEmailAndPassword = async (data) => {
+    const email = data?.get("email");
+    const password = data?.get("password");
+
+    const {data: user, error} = await supabase.auth.signInWithPassword({email, password});
+    console.log(user, error);
+    router?.redirect("/");
+
 }
 
 export {
@@ -59,6 +73,6 @@ export {
     getListingsByCategory,
     getListing,
     addToFavorites,
-    signUp,
-    signIn
+    signUpWithEmailAndPassword,
+    signInWithEmailAndPassword
 }
