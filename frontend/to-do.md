@@ -14,3 +14,8 @@
 # August 12, 2023
     --- https://supabase.com/docs/guides/auth/auth-helpers/nextjs 
     --- auth
+
+# August 14, 2023
+    --- create a user_favorite_posts table
+    --- create a user_posts table
+    

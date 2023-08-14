@@ -32,12 +32,12 @@ export default async function Listing({ params }) {
                 </div>
                 <Characteristics characteristics={characteristics} />
                 <Warnings warnings={listing?.listing_warnings || []} />
-                <section className="w-full">
+                <section className="w-full space-y-4">
                     <h1 className="text-4xl">Contact</h1> 
                     <p className="mb-12">In order to contact the owner of this listing, you need to go to the original listing's website. This is so as to be respectful to the origin from which this data has been scraped.</p>
                     <p className="text-gray hidden md:block">Original Listing</p>
                     <Link className="text-primary hidden md:block" href={listing?.url}>{listing?.url}</Link>
-                    <div className="flex justify-center"><button className="btn-secondary">Go to Original Website</button></div>
+                    <div className="flex justify-center md:hidden"><button className="btn-secondary">Go to Original Website</button></div>
                 </section>
             </div>
         </div>

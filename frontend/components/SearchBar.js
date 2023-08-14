@@ -21,7 +21,7 @@ const SearchBar = () => {
     
     return (
         <div className="w-full flex items-center">
-            <input onChange={event => setKeywords(event.target.value)} onKeyDown={handleKeyDown} placeholder="Search Autoslavia..." type="text" className="p-2 rounded-l font-semibold placeholder:text-gray outline-none text-black w-full" />
+            <input onChange={event => setKeywords(event.target.value)} onKeyDown={handleKeyDown} placeholder="Search Autoslavia..." type="text" className="p-2 rounded-l placeholder:text-gray outline-none text-black w-full" />
             <div onClick={handleSearch} className="bg-secondary p-2 rounded-r cursor-pointer"><Image src={icon} alt="search icon" className="w-6 h-6" /></div>
         </div>
     )
