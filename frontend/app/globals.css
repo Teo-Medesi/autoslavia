@@ -34,6 +34,14 @@
   @apply p-6 px-20 rounded-xl text-xl bg-primary text-background w-max;
 }
 
+.btn-danger {
+  @apply p-4 rounded-xl text-xl bg-danger text-background w-max;
+}
+
+.btn-danger-xl {
+  @apply p-6 px-20 rounded-xl text-xl bg-danger text-background w-max;
+}
+
 .btn-secondary {
   @apply p-4 rounded-xl text-xl bg-secondary text-black w-max;
 }

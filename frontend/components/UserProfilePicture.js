@@ -2,15 +2,10 @@
 import profile from "@/public/svgs/profile.svg"
 import { useSession } from "@/context/SessionContext";
 import Link from "next/link";
-import { useEffect } from "react";
 import Image from "next/image";
 
 const UserProfilePicture = () => {
-    const session = useSession();
-
-    useEffect(() => {
-        console.log(session)
-    }, [session])
+    const { session } = useSession();
 
     return (
         <div className="flex justify-end">
@@ -27,9 +22,9 @@ const UserProfilePicture = () => {
                             {
                                 session?.user?.user_metadata?.picture 
                                     ? 
-                                    <img src={session?.user?.user_metadata?.picture } className="rounded-full w-full aspect-1/1 cursor-pointer" />
+                                    <Link href="/user"><img src={session?.user?.user_metadata?.picture } className="rounded-full w-full aspect-1/1 cursor-pointer" /></Link>
                                     : 
-                                    <div className="rounded-full bg-secondary p-4 cursor-pointer"><Image src={profile} alt="profile picture" className="w-12 aspect-1/1" /></div>
+                                    <Link href="/user"><div className="rounded-full bg-secondary p-4 cursor-pointer"><Image src={profile} alt="profile picture" className="w-12 aspect-1/1" /></div></Link>
                             }
                         </>
                 }

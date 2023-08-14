@@ -18,6 +18,7 @@ export default function SignIn() {
         setUser(user);
         setError(error);
 
+        // redirecting user to home page
         router.push(process.env.NEXT_PUBLIC_SITE_URL);
     }
     
@@ -31,9 +32,6 @@ export default function SignIn() {
                 }
             }
         })
-
-        setUser(user);
-        setError(error);
     }
 
     return (
