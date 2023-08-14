@@ -1,6 +1,6 @@
 "use server";
 
-import supabase from "@/supabase.config";
+import supabase from "@/lib/supabase.config";
 import router from "next/navigation";
 
 const getLocations = async () => {

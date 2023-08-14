@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import supabase from "@/supabase.config.js"
+import supabase from "@/lib/supabase.config.js"
 
 export async function GET(request) {
     const { searchParams } = new URL(request.url);

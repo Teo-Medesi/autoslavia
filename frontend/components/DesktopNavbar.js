@@ -3,6 +3,7 @@ import Image from "next/image"
 import { Russo_One } from "next/font/google";
 import Link from "next/link";
 import SearchBar from "./SearchBar";
+import UserProfilePicture from "./UserProfilePicture";
 
 const russo = Russo_One({ subsets: ["latin"], weight: "400" });
 
@@ -17,12 +18,7 @@ const DesktopNavbar = ({ className }) => {
         </ul>
       </div>
       <SearchBar />
-      <div className="flex justify-end">
-        <ul className="flex gap-8 text-xl items-center">
-          <li className="nav-link hidden lg:block">Help</li>
-          <li><Link href={"/sign-up"}><button className="btn-secondary">Sign Up</button></Link></li>
-        </ul>
-      </div>
+      <UserProfilePicture />
     </nav>
   )
 }

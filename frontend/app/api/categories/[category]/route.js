@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import supabase from "@/supabase.config.js";
+import supabase from "@/lib/supabase.config.js";
 
 export async function GET(request, {params}) {
     const {data: category_data, category_error} = await supabase.from("categories").select("id").eq("category", params?.category?.toLowerCase());

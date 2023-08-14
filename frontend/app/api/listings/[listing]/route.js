@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import supabase from "@/supabase.config";
+import supabase from "@/lib/supabase.config";
 
 export async function GET(request, {params}) {
     const { data, error} = await supabase.from("listings").select("*, categories(*), locations(*), listing_images(*), listing_warnings(*), listing_characteristics(*), listing_gear!fk_listing_gear_listing_id(*)").eq("id", params.listing);
