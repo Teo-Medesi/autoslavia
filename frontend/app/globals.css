@@ -83,11 +83,23 @@
 }
 
 .input-sm {
-  @apply rounded p-2 outline-none bg-background shadow shadow-gray;
+  @apply rounded p-2 outline-none bg-white shadow shadow-gray;
 }
 
 .input {
-  @apply rounded p-4 outline-none bg-background shadow shadow-gray;
+  @apply rounded p-4 outline-none bg-white shadow shadow-gray;
+}
+
+.input-label {
+  @apply text-gray;
+}
+
+.textarea {
+  @apply rounded p-2 h-40 outline-none bg-white shadow shadow-gray;
+}
+
+.h1 {
+  @apply text-2xl;
 }
 
 .font-inherit {

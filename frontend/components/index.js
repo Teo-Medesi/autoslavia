@@ -13,13 +13,15 @@ import Hero from "./Hero";
 import CategoriesFeatured from "./CategoriesFeatured";
 import Filter from "./Filter";
 import Favorite from "./Favorite";
-
+import NewListing from "./NewListing";
+import UploadImages from "./UploadImages";
+import UserProfilePicture from "./UserProfilePicture";
 
 export {
     DesktopNavbar,
     SearchBar,
     Listing,
-    Loading, 
+    Loading,
     MobileNavbar,
     Characteristics,
     ImageCarousel,
@@ -30,5 +32,8 @@ export {
     Hero,
     CategoriesFeatured,
     Filter,
-    Favorite
+    Favorite,
+    NewListing,
+    UploadImages,
+    UserProfilePicture
 }
