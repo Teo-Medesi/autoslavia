@@ -26,7 +26,7 @@ export default async function Listing({ params }) {
                     <h2 className="text-4xl">{listing?.title}</h2>
                     <div className="w-full flex justify-between items-center">
                         <h3 className="text-2xl font-bold text-white bg-primary p-2 px-8 w-max rounded">{(listing?.price && listing?.price_currency) ? `${listing?.price} ${listing?.price_currency}` : "No Price"}</h3>
-                        <Favorite />
+                        <Favorite listing_id={listing?.id}/>
                     </div>
                     <p className="text-xl">{listing?.full_description || listing?.description}</p>
                 </div>

@@ -17,10 +17,10 @@ const Tags = ({ tagsProp, className }) => {
   return (
     <div className={className + " flex flex-col"}>
       <div className="flex flex-wrap w-full gap-4">
-        {tags?.map(tag => {
+        {tags?.map((tag, index) => {
           if (tag.text) {
             return (
-              <div className="py-4 px-6 rounded flex gap-2 items-center text-black font-semibold shadow-md shadow-gray2">
+              <div key={index} className="py-4 px-6 rounded flex gap-2 items-center text-black font-semibold shadow-md shadow-gray2">
                 <Image src={tag.icon} className="w-6 h-6" alt="tag icon" />
                 <p className="whitespace-nowrap">{tag.text}</p>
               </div>

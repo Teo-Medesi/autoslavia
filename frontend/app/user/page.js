@@ -10,7 +10,7 @@ export default function User() {
                 <img onClick={() => console.log(session?.user)} src={session?.user?.user_metadata?.picture } className="rounded-full w-24 h-24 aspect-1/1 cursor-pointer" />
                 <p className="text-xl">{session?.user?.email}</p>
                 <p className="text-xl">{session?.user?.user_metadata?.full_name}</p>
-                <button onClick={() => signOut} className="btn-danger">Sign Out</button>
+                <button onClick={async () => await fetch(`/api/auth/session/sign-out`, {method: "POST"})} className="btn-danger">Sign Out</button>
             </div>
         </div>
     )
