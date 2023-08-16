@@ -1,7 +1,27 @@
 "use server";
-
 import supabase from "@/lib/supabase.config";
+import supabase_server from "@/lib/supabase-server.js"
 import router from "next/navigation";
+
+const getUserFavoriteListings = async (user_uid) => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/users/${user_uid}/favorites`)
+    const data = await response.json();
+
+    return data?.data || [];
+}
+
+const isFavoriteListing = async (listing_id, user_uid) => {
+    const listings = await getUserFavoriteListings(user_uid);
+
+    const ids = listings.map(element => element.id);
+    return ids.includes(listing_id);
+}
+
+const getSession = async () => {
+    const session = await supabase_server.auth.getSession();
+
+    return session?.data?.session || {};
+}
 
 const getLocations = async () => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/locations`);
@@ -37,22 +57,21 @@ const getListingsByCategory = async (category, filters = {}) => {
 }
 
 const getFeaturedListings = async (filters = {}) => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/listings/featured`, {next: {revalidate: 60}});
+    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/listings/featured`, { next: { revalidate: 60 } });
     const data = await response.json();
-  
+
     return data.data;
 }
 
 const addToFavorites = async (id) => {
-    
+
 }
 
 const signUpWithEmailAndPassword = async (data) => {
     const email = data?.get("email");
     const password = data?.get("password");
 
-    const {data: user, error} = await supabase.auth.signUp({email, password});
-    console.log(user, error);
+    const { data: user, error } = await supabase.auth.signUp({ email, password });
     router?.redirect("/");
 }
 
@@ -60,8 +79,7 @@ const signInWithEmailAndPassword = async (data) => {
     const email = data?.get("email");
     const password = data?.get("password");
 
-    const {data: user, error} = await supabase.auth.signInWithPassword({email, password});
-    console.log(user, error);
+    const { data: user, error } = await supabase.auth.signInWithPassword({ email, password });
     router?.redirect("/");
 
 }
@@ -74,5 +92,8 @@ export {
     getListing,
     addToFavorites,
     signUpWithEmailAndPassword,
-    signInWithEmailAndPassword
+    signInWithEmailAndPassword,
+    getSession,
+    getUserFavoriteListings,
+    isFavoriteListing
 }

@@ -18,4 +18,8 @@
 # August 14, 2023
     --- create a user_favorite_posts table
     --- create a user_posts table
+
+# August 16, 2023
+    --- create page to display user's saved listings
+    --- be able to create posts
     
